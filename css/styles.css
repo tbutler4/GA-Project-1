@@ -1,0 +1,30 @@
+#header{
+  font-family: Optima, sans-serif;
+  width: 99%;
+  font-size: 77px;
+  color: coral;
+  text-shadow: 3px 3px 11px black;
+  text-align: center;
+  background-image: url('../blue.jpg');
+  border-radius: 5px;
+}
+.box{
+  margin: 33px;
+}
+#legend{
+  font-size: 33px;
+}
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
