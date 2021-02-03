@@ -1,6 +1,5 @@
 // Creating object to store data api
 let myData = {};
-console.log('mydaya 1:',myData)
 // Taking Json data and storing each index in myData object through a loop
 const grabObj = (obj) => {
   obj.forEach((element, i) => {
@@ -12,7 +11,6 @@ const grabObj = (obj) => {
     }
     myData[`${num}`] = element
   });
-  console.log('mydaya 2:',myData)
   return myData;
 };
 // fetch function that returns all california incidents then sends JSON data to grabObj function
@@ -29,42 +27,22 @@ const response = () => {
 }
 // calling fetch fucntion
 response()
-// looping through myData with setTimeout to insure data loading
-setTimeout(function(){ 
-  //looping over known amount of entries
-  for (let i = 0; i < 111; i++) {
-    // myData has no length so I must call bracket notation of i to reach entry
-    const data = myData[i];
-    //creating table for grabing and appending
-    const table = document.getElementById('table');
-    // creating table row for individual entries
-    const tableRow = document.createElement("TR");
-    // creating and supplying table data entries with information
-    const tableDataC = document.createElement("TD");
-    tableDataC.innerText = data.city
-    const tableDataD = document.createElement("TD");
-    tableDataD.innerText = data.date.slice(0,10)
-    const tableDataT = document.createElement("TD");
-    tableDataT.innerText = data.title
-    const tableDataL = document.createElement("TD");
-    let linkString = ''
-    for(let j = 0; j < data.links.length; j++){
-      const a = document.createElement("a");
-      a.setAttribute("href", data.links[j]);
-      linkString += (data.links[j] + '\n')
-    }
-    tableDataL.innerHTML = linkString
-    const tableDataTa = document.createElement("TD");
-    let tagString = ''
-    for(let j = 0; j < data.tags.length; j++){
-      tagString += (data.tags[j] + '\n')
-    }
-    tableDataTa.innerHTML = tagString
-    tableRow.appendChild(tableDataC);
-    tableRow.appendChild(tableDataD);
-    tableRow.appendChild(tableDataT);
-    tableRow.appendChild(tableDataL);
-    tableRow.appendChild(tableDataTa);
-    table.appendChild(tableRow);   
+// map api with setTimeout to insure data loading
+setTimeout(function initMap() {
+  map = new google.maps.Map(document.getElementById("map"), {
+    center: { lat: 38.1231701, lng: -122.2523552 },
+    zoom: 8,
+  });
+  setMarkers(map);
+}, 100);
+
+function setMarkers(map) {
+  for (let i = 0; i <= 110; i++) {
+    const incident = myData[i];
+    new google.maps.Marker({
+      position: { lat: Number(incident.geocoding.lat), lng: Number(incident.geocoding.long) },
+      map,
+      title: incident.title,
+    });
   }
-}, 50);
+};
