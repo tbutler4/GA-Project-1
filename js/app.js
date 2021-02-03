@@ -33,11 +33,11 @@ var reducer = function(tally, obj) {
         "long":obj.geocoding.long,
       },
       "title":obj.title,
-      "links":[`https://api.846policebrutality.com/api/incidents/${obj.id}`],
+      "links": { 1 : {"link":`https://api.846policebrutality.com/api/incidents/${obj.id}`,"title":obj.title}} 
     };
   } else {
     tally[obj["city"]]["count"] += 1;;
-    tally[obj["city"]]["links"].push(`https://api.846policebrutality.com/api/incidents/${obj.id}`);
+    tally[obj["city"]]["links"][tally[obj["city"]]["count"]] = {"link":`https://api.846policebrutality.com/api/incidents/${obj.id}`,"title":obj.title}    //.push(`https://api.846policebrutality.com/api/incidents/${obj.id}`);
   }
   return tally;
 }
@@ -82,16 +82,19 @@ function setMarkers(map) {
   console.log(newResult)
   for (const key in newResult) {
     const incident = newResult[key];
-    // for(let i=0;i<incident.links.length;i++){console.log(incident.links[i], key)}
-    const contentString =
+    // console.log(incident.link)
+    const tempArr = []
+    for(const link in incident.links){
+      // console.log(incident.links[link].title, "<<<<>>>>>", incident.city)
+      tempArr.push(`<a href="${incident.links[link]}">${incident.links[link].title}</a></br>`)
+    }
+    let concatString = tempArr.join('')
+    let contentString =
       `<div id="content">
-      <h1 id="test">test<h1>
       <h1>${incident.city}</h1>
-      <h2> ${incident.title}(${incident.count} Incident/s)</h2> 
-      <a href="${incident.links[0]}">Click Here To Learn More</a>
-
+      <h2 class="testH"> Click Below to Learn More (${incident.count} Incident/s)</h2> 
+      ${concatString}
       </div>`;
-    // console.log(incident)
     const infowindow = new google.maps.InfoWindow({
       content: contentString,
     });
@@ -108,7 +111,7 @@ function setMarkers(map) {
 };
 },500)
 
-
+// document.querySelector(".switch")
 
 
 
