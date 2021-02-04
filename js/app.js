@@ -45,17 +45,138 @@ var reducer = function(tally, obj) {
 
 setTimeout(function waiting(){
   var newResult = arr.reduce(reducer, initialValue) 
-  // console.log(newResult)
-// map api with setTimeout to insure data loading
-const initMap = () => {
+// map api 
+let initMap = () => {
   map = new google.maps.Map(document.getElementById("map"), {
     center: { lat: 38.1231701, lng: -122.2523552 },
     zoom: 8,
+    styles: [],
   });
   //Calling function to display markers and passing it the new map
   setMarkers(map);
 };
 initMap();
+// console.log("#2",map)
+
+
+const dark = [
+      { elementType: "geometry", stylers: [{ color: "#242f3e" }] },
+      { elementType: "labels.text.stroke", stylers: [{ color: "#242f3e" }] },
+      { elementType: "labels.text.fill", stylers: [{ color: "#746855" }] },
+      {
+        featureType: "administrative.locality",
+        elementType: "labels.text.fill",
+        stylers: [{ color: "#d59563" }],
+      },
+      {
+        featureType: "poi",
+        elementType: "labels.text.fill",
+        stylers: [{ color: "#d59563" }],
+      },
+      {
+        featureType: "poi.park",
+        elementType: "geometry",
+        stylers: [{ color: "#263c3f" }],
+      },
+      {
+        featureType: "poi.park",
+        elementType: "labels.text.fill",
+        stylers: [{ color: "#6b9a76" }],
+      },
+      {
+        featureType: "road",
+        elementType: "geometry",
+        stylers: [{ color: "#38414e" }],
+      },
+      {
+        featureType: "road",
+        elementType: "geometry.stroke",
+        stylers: [{ color: "#212a37" }],
+      },
+      {
+        featureType: "road",
+        elementType: "labels.text.fill",
+        stylers: [{ color: "#9ca5b3" }],
+      },
+      {
+        featureType: "road.highway",
+        elementType: "geometry",
+        stylers: [{ color: "#746855" }],
+      },
+      {
+        featureType: "road.highway",
+        elementType: "geometry.stroke",
+        stylers: [{ color: "#1f2835" }],
+      },
+      {
+        featureType: "road.highway",
+        elementType: "labels.text.fill",
+        stylers: [{ color: "#f3d19c" }],
+      },
+      {
+        featureType: "transit",
+        elementType: "geometry",
+        stylers: [{ color: "#2f3948" }],
+      },
+      {
+        featureType: "transit.station",
+        elementType: "labels.text.fill",
+        stylers: [{ color: "#d59563" }],
+      },
+      {
+        featureType: "water",
+        elementType: "geometry",
+        stylers: [{ color: "#17263c" }],
+      },
+      {
+        featureType: "water",
+        elementType: "labels.text.fill",
+        stylers: [{ color: "#515c6d" }],
+      },
+      {
+        featureType: "water",
+        elementType: "labels.text.stroke",
+        stylers: [{ color: "#17263c" }],
+      },
+    ]
+
+const light = []
+
+
+// Starting query for night mode switch
+const modeSwitch = document.querySelector("#toggle")
+localStorage.setItem('listener', false);
+
+// console,log(myListener)
+modeSwitch.addEventListener(
+  "click", localStorage.getItem('listener') === false ? 
+  initMap = () => {
+    localStorage.clear();
+    map = new google.maps.Map(document.getElementById("map"), {
+      center: { lat: 38.1231701, lng: -122.2523552 },
+      zoom: 8,
+      styles: dark,
+    });
+    //Calling function to display markers and passing it the new map
+    setMarkers(map);
+    console.log(localStorage.getItem('listener'))
+  } 
+  :
+  initMap = () => {
+    localStorage.setItem('listener', false);
+    map = new google.maps.Map(document.getElementById("map"), {
+      center: { lat: 38.1231701, lng: -122.2523552 },
+      zoom: 8,
+      styles: light,
+    });
+    //Calling function to display markers and passing it the new map
+    setMarkers(map);
+    console.log(localStorage.getItem('listener'))
+  }
+
+);
+
+
 // Function to display markers kept seperate from initMap to avoid looping errors
 function setMarkers(map) {
   // Marker sizes are expressed as a Size of X,Y where the origin of the image
@@ -79,14 +200,14 @@ function setMarkers(map) {
     coords: [1, 1, 1, 20, 18, 20, 18, 1],
     type: "poly",
   };
-  console.log(newResult)
+  // console.log(newResult)
   for (const key in newResult) {
     const incident = newResult[key];
     // console.log(incident.link)
     const tempArr = []
     for(const link in incident.links){
-      // console.log(incident.links[link].title, "<<<<>>>>>", incident.city)
-      tempArr.push(`<a href="${incident.links[link]}">${incident.links[link].title}</a></br>`)
+      console.log(incident.links[link], "<<<<>>>>>", incident.city)
+      tempArr.push(`<a href="${incident.links[link].link}">${incident.links[link].title}</a></br>`)
     }
     let concatString = tempArr.join('')
     let contentString =
@@ -110,13 +231,3 @@ function setMarkers(map) {
   }
 };
 },500)
-
-// document.querySelector(".switch")
-
-
-
-    // new google.maps.Marker({
-    //   position: { lat: Number(myData.geocoding.lat), lng: Number(incident.geocoding.long) },
-    //   map,
-    //   title: myData.title,
-    // })
