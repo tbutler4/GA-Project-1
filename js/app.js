@@ -148,13 +148,15 @@ const light = []
 
 // Starting query for night mode switch
 const modeSwitch = document.querySelector("#toggle")
+//accessing local storage to create a listener
 localStorage.setItem('listener', "false");
-
+//adding event listener to html switch
 modeSwitch.addEventListener(
+  // creating ternary operator on click function that switches night and day theme
   "click", function switchMode(){
-    if(localStorage.getItem('listener') === "false"){
+    localStorage.getItem('listener') === "false" ?
       initMap = () => {
-        localStorage.clear();
+      localStorage.setItem('listener', "true");
         map = new google.maps.Map(document.getElementById("map"), {
           center: { lat: 38.1231701, lng: -122.2523552 },
           zoom: 8,
@@ -163,10 +165,8 @@ modeSwitch.addEventListener(
         // Calling function to display markers and passing it the new map
         setMarkers(map);
         console.log("log#1",localStorage.getItem('listener'))
-      } 
-      initMap();
-      localStorage.setItem('listener', "true");
-    }else{
+      }
+      :
       initMap = () => {
         localStorage.setItem('listener', "false");
         map = new google.maps.Map(document.getElementById("map"), {
@@ -179,8 +179,6 @@ modeSwitch.addEventListener(
         console.log("log#2",localStorage.getItem('listener'))
       }
       initMap();
-      localStorage.setItem('listener', "false");
-    }
   })
 
 // Function to display markers kept seperate from initMap to avoid looping errors
@@ -191,8 +189,7 @@ function setMarkers(map) {
   // direction to the right and in the Y direction down.
   const image = {
     url:
-    /Users/terrencebutler/Documents/GA/sei-0119/Project-1/GA-Project-1/assets/danger.png
-      ("../assets/danger.png"),
+      "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png",
     // This marker is 20 pixels wide by 32 pixels high.
     size: new google.maps.Size(20, 32),
     // The origin for this image is (0, 0).
@@ -216,7 +213,7 @@ function setMarkers(map) {
     // Looping through object entry links
     for(const link in incident.links){
       // Pushing a tag string with ending br tag into empty arr
-      tempArr.push(`<a href="${incident.links[link].link}">${incident.links[link].title}</a></br>`)
+      tempArr.push(`&#8250; <a href="${incident.links[link].link}">${incident.links[link].title}</a></br>`)
     }
     // Concatenating arr of strings
     let concatString = tempArr.join('')
