@@ -6,7 +6,7 @@
   color: coral;
   text-shadow: 3px 3px 11px black;
   text-align: center;
-  background-image: url('../blue.jpg');
+  background-image: url('../assets/blue.jpg');
   background-size: cover;
   border-radius: 5px;
   margin: auto;
