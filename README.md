@@ -16,3 +16,4 @@
 ## Hurdles
 ### Using Google's infoWindow pop up created a barrier between DOM Manipulation and the pop up window. This was slowing down generating specific API data to show in the pop up. I instead created a string to append the specific data and used that inside as a template literal.
 ### Using an Event Listener to toggle night mode I was able to change the style of the map based on a listener in local storage. During this problem I learned that the listenrer sets the callback at the time of creation and not during click if specified. So I put my conditional statement inside the callback function.
+### Google maps API is strict in specifying a url and creating a billing profile for using maps. Going through documentation and online suggestions really helped in narrowing down which solution was right for me.
