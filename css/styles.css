@@ -1,3 +1,4 @@
+/* HTML portion */
 /* header styling */
 #header{
   font-family: Optima, sans-serif;
@@ -26,9 +27,7 @@ body {
   padding: 0;
 }
 
-
-
-
+/* Switch portion */
 /* The switch - the box around the slider */
 .switch {
   position: relative;
