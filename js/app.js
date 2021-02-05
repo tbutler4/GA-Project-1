@@ -31,7 +31,6 @@ setTimeout(function waiting(){
         });
         // Calling function to display markers and passing it the new map
         setMarkers(map);
-        console.log("log#1",localStorage.getItem('listener'))
       }
       :
       initMap = () => {
@@ -43,7 +42,6 @@ setTimeout(function waiting(){
         });
         // Calling function to display markers and passing it the new map
         setMarkers(map);
-        console.log("log#2",localStorage.getItem('listener'))
       }
       initMap();
   })
