@@ -11,7 +11,7 @@
 ## This app accomplishes peace of mind when travelling or finding a place to live for those who visit. My goal of this project is to show the possibility of a large scale version which will bring together communities and bring more awareness by having factual evidence.
 
 # Wireframe
-![Image of wireframe](https://user-images.githubusercontent.com/37936292/106972300-7166ec00-6705-11eb-8751-92a562f461ad.png)
+![Family Watch](https://user-images.githubusercontent.com/37936292/106974060-e7208700-6708-11eb-94c7-7f8d169b1b62.png)
 
 ## Hurdles
 ### Using Google's infoWindow pop up created a barrier between DOM Manipulation and the pop up window. This was slowing down generating specific API data to show in the pop up. I instead created a string to append the specific data and used that inside as a template literal.
